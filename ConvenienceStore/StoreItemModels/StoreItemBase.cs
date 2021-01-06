@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConvenienceStore
+namespace ConvenienceStore.StoreItemModels
 {
-    public abstract class StoreItemBase : IStoreItemBase
+    public abstract class StoreItemBase : IStoreItem
     {
         internal int _quality;
         internal int _sellIn;
@@ -15,28 +15,10 @@ namespace ConvenienceStore
 
         public StoreItemBase(string name, int sellIn, int quality)
         {
-            SetQuality(quality);
+            _quality = quality;
             _sellIn = sellIn;
             _name = name;
-        }
-
-        private void SetQuality(int quality)
-        {
-            // TODO: Waiting on reply from Sam to see if this logic is needed - Remove if not
-
-            //if (quality > maxQuality)
-            //{
-            //    _quality = 50;
-            //}
-            //else if(quality < minQuality)
-            //{
-            //    _quality = minQuality;
-            //}
-            //else
-            //{
-                _quality = quality;
-            //}
-        }
+        }       
 
         public void DaysPast(int daysPast)
         {
@@ -64,5 +46,8 @@ namespace ConvenienceStore
         {
             return _sellIn;
         }
+
+        
+       
     }
 }

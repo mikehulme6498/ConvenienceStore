@@ -1,6 +1,6 @@
-﻿namespace ConvenienceStore
+﻿namespace ConvenienceStore.StoreItemModels
 {
-    public interface IStoreItemBase
+    public interface IStoreItem
     {
         void DaysPast(int daysPast);
         void DisplayInfo();

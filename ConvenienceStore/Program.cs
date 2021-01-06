@@ -7,7 +7,7 @@ namespace ConvenienceStore
     {
         static void Main()
         {
-            IStoreItemBase frozenItem = new FrozenItem("Frozen Item", 55, -1);
+            IStoreItem frozenItem = new FrozenItem("Frozen Item", -1, 55);
             frozenItem.DaysPast(1);
             frozenItem.DisplayInfo();
             Console.Read();
