@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConvenienceStore.ItemQualityLogicModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,32 +9,11 @@ namespace ConvenienceStore.StoreItemModels
     {
         public FrozenItem(string name, int sellIn, int quality) : base(name, sellIn, quality)
         {
-
+            SetQualityLogic(new FrozenQualityLogic());
         }
-        internal override void AdjustQuality(int daysPast)
+        internal override void SetQualityLogic(IQualityAdjustmentLogic logic)
         {
-            if (_quality - daysPast > maxQuality)
-            {
-                _quality = maxQuality;
-                return;
-            }
-
-            if (_quality - daysPast < minQuality)
-            {
-                _quality = minQuality;
-                return;
-            }
-
-            if(daysPast > _sellIn)
-            {
-                int doubleDaysReduction = Math.Abs((_sellIn - daysPast) * 2);
-                int singleDays = (_sellIn - daysPast) + daysPast;
-                _quality -= doubleDaysReduction + singleDays;
-                return;
-            }
-
-            _quality -= daysPast;
+            _qualityLogic = logic;
         }
-
     }
 }

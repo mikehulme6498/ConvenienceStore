@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ConvenienceStore.ItemQualityLogicModels;
+using System;
 
 namespace ConvenienceStore.StoreItemModels
 {
     public abstract class StoreItemBase : IStoreItem
     {
         internal int _quality;
+        internal IQualityAdjustmentLogic _qualityLogic;
         internal int _sellIn;
         internal string _name;
         internal const int minQuality = 0;
@@ -18,7 +18,7 @@ namespace ConvenienceStore.StoreItemModels
             _quality = quality;
             _sellIn = sellIn;
             _name = name;
-        }       
+        }
 
         public void DaysPast(int daysPast)
         {
@@ -31,7 +31,11 @@ namespace ConvenienceStore.StoreItemModels
             Console.WriteLine($"Quality : {_quality} - Sell In {_sellIn} days.");
         }
 
-        internal abstract void AdjustQuality(int daysPast);
+        private void AdjustQuality(int daysPast)
+        {
+            _quality = _qualityLogic.AdjustQuality(_quality, _sellIn, daysPast, maxQuality, minQuality);
+        }
+        internal abstract void SetQualityLogic(IQualityAdjustmentLogic logic);
         internal virtual void AdjustSellIn(int daysPast)
         {
             _sellIn -= daysPast;
@@ -47,7 +51,7 @@ namespace ConvenienceStore.StoreItemModels
             return _sellIn;
         }
 
-        
-       
+
+
     }
 }

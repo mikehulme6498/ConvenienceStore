@@ -50,6 +50,14 @@ namespace ConvenienceStore_Tests
         }
 
         [Test]
+        public void TempTest()
+        {
+            FrozenItem frozenItem = new FrozenItem("", -2, 50);
+            frozenItem.DaysPast(5);
+            Assert.AreEqual(40, frozenItem.GetQuality());
+        }
+
+        [Test]
         public void TestInputFromTechTest1()
         {
             FrozenItem frozenItem = new FrozenItem("", -1, 55);

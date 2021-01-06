@@ -4,6 +4,11 @@ namespace ConvenienceStore.ItemQualityLogicModels
 {
     public class FrozenQualityLogic : IQualityAdjustmentLogic
     {
+        private bool _doubleResult;
+        public FrozenQualityLogic(bool doubleResult = false)
+        {
+            _doubleResult = doubleResult;
+        }
         public int AdjustQuality(int currentQuality, int sellIn, int daysPast, int maxQuality, int minQuality)
         {
 
@@ -17,7 +22,12 @@ namespace ConvenienceStore.ItemQualityLogicModels
                 return minQuality;
             }
 
-            if (daysPast > sellIn)
+            if(sellIn < 0)
+            {
+                return _doubleResult ? currentQuality = currentQuality - (daysPast * 4) : currentQuality - (daysPast * 2);
+            }
+
+            if (daysPast > sellIn && !_doubleResult)
             {
                 int doubleDaysReduction = Math.Abs((sellIn - daysPast) * 2);
                 int singleDays = (sellIn - daysPast) + daysPast;
@@ -25,7 +35,7 @@ namespace ConvenienceStore.ItemQualityLogicModels
                 return currentQuality;
             }
 
-            return currentQuality -= daysPast;
+            return _doubleResult ? currentQuality -= daysPast * 2 : currentQuality -= daysPast ;
         }
     }
 

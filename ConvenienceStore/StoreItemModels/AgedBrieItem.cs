@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConvenienceStore.ItemQualityLogicModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,25 +9,11 @@ namespace ConvenienceStore.StoreItemModels
     {
         public AgedBrieItem(string name, int sellIn, int quality) : base(name, sellIn, quality)
         {
-
+            SetQualityLogic(new AgedBrieQualityLogic());
         }
-        internal override void AdjustQuality(int daysPast)
+        internal override void SetQualityLogic(IQualityAdjustmentLogic logic)
         {
-            
-            if (_quality + daysPast > maxQuality)
-            {
-                _quality = maxQuality;
-            }
-            else if(_quality + daysPast < minQuality)
-            {
-                _quality = minQuality;
-            }
-            else
-            {
-                _quality+=daysPast;
-            }
+            _qualityLogic = logic;
         }
-
-        
     }
 }

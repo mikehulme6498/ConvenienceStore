@@ -4,20 +4,15 @@ namespace ConvenienceStore.StoreItemModels
 {
     public class FreshItem : StoreItemBase
     {
-        IQualityAdjustmentLogic qualityAdjustmentLogic;
-
-        public FreshItem(string name, int sellIn, int quality, IQualityAdjustmentLogic qualityLogic) : base(name, sellIn, quality)
+        
+        public FreshItem(string name, int sellIn, int quality) : base(name, sellIn, quality)
         {
-            qualityAdjustmentLogic = qualityLogic;
+            SetQualityLogic(new FrozenQualityLogic(true));
         }
-
-        internal override void AdjustQuality(int daysPast)
+        internal override void SetQualityLogic(IQualityAdjustmentLogic logic)
         {
-            _quality = qualityAdjustmentLogic.AdjustQuality(_quality, _sellIn, daysPast, maxQuality, minQuality);
-            _quality = qualityAdjustmentLogic.AdjustQuality(_quality, _sellIn, daysPast, maxQuality, minQuality);
+            _qualityLogic = logic;
         }
-
-
     }
 
 

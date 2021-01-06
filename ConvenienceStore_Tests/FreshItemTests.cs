@@ -12,7 +12,7 @@ namespace ConvenienceStore_Tests
         [Test]
         public void QualityShouldDecreaseByOneperDay()
         {
-            FreshItem freshItem = new FreshItem("", 10, 50, new FrozenQualityLogic());
+            FreshItem freshItem = new FreshItem("", 10, 50);
             freshItem.DaysPast(2);
             Assert.AreEqual(46, freshItem.GetQuality());
         }
@@ -20,7 +20,7 @@ namespace ConvenienceStore_Tests
         [Test]
         public void SellInShouldDecreaseByOneperDay()
         {
-            FreshItem freshItem = new FreshItem("", 10, 50, new FrozenQualityLogic());
+            FreshItem freshItem = new FreshItem("", 10, 50);
             freshItem.DaysPast(2);
             Assert.AreEqual(8, freshItem.GetSellIn());
         }
@@ -28,7 +28,7 @@ namespace ConvenienceStore_Tests
         [Test]
         public void QualityShouldNotGoBelowZero()
         {
-            FreshItem freshItem = new FreshItem("", 10, 5, new FrozenQualityLogic());
+            FreshItem freshItem = new FreshItem("", 10, 5);
             freshItem.DaysPast(6);
             Assert.AreEqual(0, freshItem.GetQuality());
         }
@@ -36,36 +36,36 @@ namespace ConvenienceStore_Tests
         [Test]
         public void QualityShouldBeAtMaxQualityIfResultIsGreaterThanMaxQuality()
         {
-            FreshItem freshItem = new FreshItem("", -1, 60, new FrozenQualityLogic());
+            FreshItem freshItem = new FreshItem("", -1, 60);
             freshItem.DaysPast(1);
             Assert.AreEqual(50, freshItem.GetQuality());
         }
 
-        //[Test]
-        //public void QualityShouldBeNotGoBelowMinQuality()
-        //{
-        //    FrozenItem frozenItem = new FrozenItem("", 5, 5);
-        //    frozenItem.DaysPast(9);
-        //    Assert.AreEqual(0, frozenItem.GetQuality());
-        //}
+        [Test]
+        public void QualityShouldBeNotGoBelowMinQuality()
+        {
+            FreshItem freshItem = new FreshItem("", 5, 5);
+            freshItem.DaysPast(9);
+            Assert.AreEqual(0, freshItem.GetQuality());
+        }
 
-        //[Test]
-        //public void TestInputFromTechTest1()
-        //{
-        //    FrozenItem frozenItem = new FrozenItem("", -1, 55);
-        //    frozenItem.DaysPast(1);
-        //    Assert.AreEqual(50, frozenItem.GetQuality());
-        //    Assert.AreEqual(-2, frozenItem.GetSellIn());
-        //}
+        [Test]
+        public void TestInputFromTechTest1()
+        {
+            FreshItem freshItem = new FreshItem("", 2, 2);
+            freshItem.DaysPast(1);
+            Assert.AreEqual(0, freshItem.GetQuality());
+            Assert.AreEqual(1, freshItem.GetSellIn());
+        }
 
-        //[Test]
-        //public void TestInputFromTechTest2()
-        //{
-        //    FrozenItem frozenItem = new FrozenItem("", 2, 2);
-        //    frozenItem.DaysPast(1);
-        //    Assert.AreEqual(1, frozenItem.GetQuality());
-        //    Assert.AreEqual(1, frozenItem.GetSellIn());
-        //}
+        [Test]
+        public void TestInputFromTechTest2()
+        {
+            FreshItem freshItem = new FreshItem("", -1, 5);
+            freshItem.DaysPast(1);
+            Assert.AreEqual(1, freshItem.GetQuality());
+            Assert.AreEqual(-2, freshItem.GetSellIn());
+        }
 
         //[Test]
         //[TestCase(3, 45)]
