@@ -12,17 +12,7 @@ namespace ConvenienceStore.ItemQualityLogicModels
         public int AdjustQuality(int currentQuality, int sellIn, int daysPast, int maxQuality, int minQuality)
         {
 
-            if (currentQuality - daysPast > maxQuality)
-            {
-                return maxQuality;
-            }
-
-            if (currentQuality - daysPast < minQuality)
-            {
-                return minQuality;
-            }
-
-            if(sellIn < 0)
+            if (sellIn < 0)
             {
                 return _doubleResult ? currentQuality = currentQuality - (daysPast * 4) : currentQuality - (daysPast * 2);
             }
@@ -35,7 +25,7 @@ namespace ConvenienceStore.ItemQualityLogicModels
                 return currentQuality;
             }
 
-            return _doubleResult ? currentQuality -= daysPast * 2 : currentQuality -= daysPast ;
+            return _doubleResult ? currentQuality -= daysPast * 2 : currentQuality -= daysPast;
         }
     }
 

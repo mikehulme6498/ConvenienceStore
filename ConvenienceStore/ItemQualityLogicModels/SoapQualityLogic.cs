@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConvenienceStore.ItemQualityLogicModels
+﻿namespace ConvenienceStore.ItemQualityLogicModels
 {
     public class SoapQualityLogic : IQualityAdjustmentLogic
     {

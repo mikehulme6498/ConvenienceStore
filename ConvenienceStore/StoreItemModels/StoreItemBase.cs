@@ -24,16 +24,30 @@ namespace ConvenienceStore.StoreItemModels
         {
             AdjustQuality(daysPast);
             AdjustSellIn(daysPast);
+            CheckQualityAgainstMaxAndMin();
         }
 
         public void DisplayInfo()
         {
-            Console.WriteLine($"Quality : {_quality} - Sell In {_sellIn} days.");
+            Console.WriteLine($"{_name}  : Sell In {_sellIn} days. Quality - {_quality} ");
         }
 
         private void AdjustQuality(int daysPast)
         {
             _quality = _qualityLogic.AdjustQuality(_quality, _sellIn, daysPast, maxQuality, minQuality);
+        }
+
+        private void CheckQualityAgainstMaxAndMin()
+        {
+            if(_quality > maxQuality)
+            {
+                _quality = maxQuality;
+            }
+
+            if(_quality < minQuality)
+            {
+                _quality = minQuality;
+            }
         }
         internal abstract void SetQualityLogic(IQualityAdjustmentLogic logic);
         internal virtual void AdjustSellIn(int daysPast)
