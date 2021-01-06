@@ -1,4 +1,5 @@
 ﻿using ConvenienceStore;
+using ConvenienceStore.StoreItemModels;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace ConvenienceStore_Tests
        [Test]
         public void QualityShouldDecreaseByOneperDay()
         {
-            FrozenItem frozenItem = new FrozenItem("", 50, 10);
+            FrozenItem frozenItem = new FrozenItem("", 10, 50);
             frozenItem.DaysPast(2);
             Assert.AreEqual(48, frozenItem.GetQuality());
         }
@@ -19,7 +20,7 @@ namespace ConvenienceStore_Tests
         [Test]
         public void SellInShouldDecreaseByOneperDay()
         {
-            FrozenItem frozenItem = new FrozenItem("", 50, 10);
+            FrozenItem frozenItem = new FrozenItem("", 10, 50);
             frozenItem.DaysPast(2);
             Assert.AreEqual(8, frozenItem.GetSellIn());
         }
@@ -27,23 +28,43 @@ namespace ConvenienceStore_Tests
         [Test]
         public void QualityShouldNotGoBelowZero()
         {
-            FrozenItem frozenItem = new FrozenItem("", 5, 10);
+            FrozenItem frozenItem = new FrozenItem("", 10, 5);
             frozenItem.DaysPast(6);
             Assert.AreEqual(0, frozenItem.GetQuality());
         }
 
         [Test]
-        public void QualityShouldNotBeAbleToBeSetBelowZero()
+        public void QualityShouldBeAtMaxQualityIfResultIsGreaterThanMaxQuality()
         {
-            FrozenItem frozenItem = new FrozenItem("", -7, 10);
+            FrozenItem frozenItem = new FrozenItem("", -1, 55);
+            frozenItem.DaysPast(1);
+            Assert.AreEqual(50, frozenItem.GetQuality());
+        }
+
+        [Test]
+        public void QualityShouldBeNotGoBelowMinQuality()
+        {
+            FrozenItem frozenItem = new FrozenItem("", 5, 5);
+            frozenItem.DaysPast(9);
             Assert.AreEqual(0, frozenItem.GetQuality());
         }
 
         [Test]
-        public void QualityShouldNotBeAbleToBeSetAbove50()
+        public void TestInputFromTechTest1()
         {
-            FrozenItem frozenItem = new FrozenItem("", 51, 10);
+            FrozenItem frozenItem = new FrozenItem("", -1, 55);
+            frozenItem.DaysPast(1);
             Assert.AreEqual(50, frozenItem.GetQuality());
+            Assert.AreEqual(-2, frozenItem.GetSellIn());
+        }
+
+        [Test]
+        public void TestInputFromTechTest2()
+        {
+            FrozenItem frozenItem = new FrozenItem("", 2, 2);
+            frozenItem.DaysPast(1);
+            Assert.AreEqual(1, frozenItem.GetQuality());
+            Assert.AreEqual(1, frozenItem.GetSellIn());
         }
 
         [Test]
@@ -53,7 +74,7 @@ namespace ConvenienceStore_Tests
         [TestCase(0, 50)]
         public void QualityShouldDecreaseDoubleWhenSellByDatePast(int daysPast, int expectedResult)
         {
-            FrozenItem frozenItem = new FrozenItem("", 50, 1);
+            FrozenItem frozenItem = new FrozenItem("", 1, 50);
             frozenItem.DaysPast(daysPast);
             Assert.AreEqual(expectedResult, frozenItem.GetQuality());
         }

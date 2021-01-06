@@ -13,7 +13,7 @@ namespace ConvenienceStore
         internal const int maxQuality = 50;
 
 
-        public StoreItemBase(string name, int quality, int sellIn)
+        public StoreItemBase(string name, int sellIn, int quality)
         {
             SetQuality(quality);
             _sellIn = sellIn;
@@ -22,18 +22,20 @@ namespace ConvenienceStore
 
         private void SetQuality(int quality)
         {
-            if (quality > maxQuality)
-            {
-                _quality = 50;
-            }
-            else if(quality < minQuality)
-            {
-                _quality = minQuality;
-            }
-            else
-            {
+            // TODO: Waiting on reply from Sam to see if this logic is needed - Remove if not
+
+            //if (quality > maxQuality)
+            //{
+            //    _quality = 50;
+            //}
+            //else if(quality < minQuality)
+            //{
+            //    _quality = minQuality;
+            //}
+            //else
+            //{
                 _quality = quality;
-            }
+            //}
         }
 
         public void DaysPast(int daysPast)
@@ -48,7 +50,10 @@ namespace ConvenienceStore
         }
 
         internal abstract void AdjustQuality(int daysPast);
-        internal abstract void AdjustSellIn(int daysPast);
+        internal virtual void AdjustSellIn(int daysPast)
+        {
+            _sellIn -= daysPast;
+        }
 
         public int GetQuality()
         {
