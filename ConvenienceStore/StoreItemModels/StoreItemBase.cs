@@ -34,12 +34,6 @@ namespace ConvenienceStore.StoreItemModels
             AdjustSellIn(daysPast);
             CheckQualityAgainstMaxAndMin();
         }
-
-        public void DisplayInfo()
-        {
-            Console.WriteLine($"{_name}  : Sell In {_sellIn} days. Quality - {_quality} ");
-        }
-
         private void AdjustQuality(int daysPast)
         {
             _quality = _qualityLogic.AdjustQuality(_quality, _sellIn, daysPast, maxQuality, minQuality);

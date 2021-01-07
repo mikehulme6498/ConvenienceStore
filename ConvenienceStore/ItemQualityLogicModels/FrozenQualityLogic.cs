@@ -25,6 +25,14 @@ namespace ConvenienceStore.ItemQualityLogicModels
                 return currentQuality;
             }
 
+            if (daysPast > sellIn && _doubleResult)
+            {
+                int doubleDaysReduction = Math.Abs((sellIn - daysPast) * 4);
+                int singleDays = ((sellIn - daysPast) + daysPast) * 2;
+                currentQuality -= doubleDaysReduction + singleDays;
+                return currentQuality;
+            }
+
             return _doubleResult ? currentQuality -= daysPast * 2 : currentQuality -= daysPast;
         }
     }

@@ -11,30 +11,45 @@ namespace ConvenienceStore
         {
             List<IStoreItem> inventory = PopulateInventory();
             int daysToJump = 0;
+            ConsoleKey key;
             DateTime currentDate = DateTime.Now;
 
-            InvalidItem invalidItem = new InvalidItem("INVALID ITEM", 2, 2);
-            invalidItem.DaysPast(3);
-            
-            PrintTable(inventory, currentDate);
-
-            while (daysToJump == 0) 
+            do
             {
-                Console.Write(" How many days would you like to skip forward? : ");
-                int.TryParse(Console.ReadLine(), out daysToJump);
-            }
+                Console.Clear();
+                PrintTable(inventory, currentDate);
 
-            SkipForward(inventory, daysToJump);
-            currentDate = currentDate.AddDays(daysToJump);
-            Console.WriteLine();
-           
-            PrintTable(inventory, currentDate);
-            
-            Console.Read();
+                while (daysToJump == 0)
+                {
+                    Console.Write(" How many days would you like to skip forward? : ");
+                    int.TryParse(Console.ReadLine(), out daysToJump);
+                }
 
+                SkipDaysForward(inventory, daysToJump);
+                currentDate = currentDate.AddDays(daysToJump);
+                PrintTable(inventory, currentDate);
+                
+                Console.Write(" Press (C)ontinue, (S)tart again, (E)xit : ");
+                key = Console.ReadKey(true).Key;
+
+                switch (key) 
+                {
+                    case ConsoleKey.S :
+                        inventory = PopulateInventory();
+                        currentDate = DateTime.Now;
+                        daysToJump = 0;
+                        break;
+                    case ConsoleKey.C:
+                        daysToJump = 0;
+                        break;
+                    default:
+                        break;
+                }
+
+            } while (key != ConsoleKey.E);           
         }
 
-        static void SkipForward(List<IStoreItem> items, int daysToSkip)
+        static void SkipDaysForward(List<IStoreItem> items, int daysToSkip)
         {
             foreach (var item in items)
             {
@@ -51,11 +66,11 @@ namespace ConvenienceStore
                 string quality = item.GetQuality() == int.MaxValue ? "" : item.GetQuality().ToString();
                 table.AddRow(item.GetName(), sellIn, quality);
             }
+            Console.WriteLine();
             Console.WriteLine($" Current Inventory - {date.ToShortDateString()}");
             Console.WriteLine(" ==============================");
             Console.WriteLine();
             table.Write(Format.Alternative);
-
         }
 
         static List<IStoreItem> PopulateInventory()

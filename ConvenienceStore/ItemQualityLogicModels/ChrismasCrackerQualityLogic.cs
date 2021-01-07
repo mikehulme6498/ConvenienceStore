@@ -5,7 +5,7 @@
         public int AdjustQuality(int currentQuality, int sellIn, int daysPast, int maxQuality, int minQuality)
         {
 
-            if (sellIn < 0)
+            if (sellIn <= 0)
             {
                 return 0;
             }

@@ -1,8 +1,5 @@
 ﻿using ConvenienceStore.StoreItemModels;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConvenienceStore_Tests
 {
@@ -35,7 +32,7 @@ namespace ConvenienceStore_Tests
         [Test]
         public void TestInputFromTechTest()
         {
-            AgedBrieItem agedBrieItem = new AgedBrieItem("", 1,1);
+            AgedBrieItem agedBrieItem = new AgedBrieItem("", 1, 1);
             agedBrieItem.DaysPast(1);
             Assert.AreEqual(2, agedBrieItem.GetQuality());
             Assert.AreEqual(0, agedBrieItem.GetSellIn());

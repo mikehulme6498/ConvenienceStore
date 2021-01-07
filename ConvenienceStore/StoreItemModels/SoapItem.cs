@@ -1,7 +1,4 @@
 ﻿using ConvenienceStore.ItemQualityLogicModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConvenienceStore.StoreItemModels
 {
@@ -13,9 +10,8 @@ namespace ConvenienceStore.StoreItemModels
         }
         internal override void AdjustSellIn(int daysPast)
         {
-            
+            // No logic needed for soap items
         }
-
         internal override void SetQualityLogic(IQualityAdjustmentLogic logic)
         {
             _qualityLogic = logic;

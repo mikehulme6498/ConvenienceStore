@@ -38,6 +38,14 @@ namespace ConvenienceStore_Tests
         }
 
         [Test]
+        public void QualityShouldGotoZeroAfterSellBy()
+        {
+            ChristmasCrackerItem crackerItem = new ChristmasCrackerItem("", 0, 20);
+            crackerItem.DaysPast(1);
+            Assert.AreEqual(0, crackerItem.GetQuality());
+        }
+
+        [Test]
         public void TestInputFromTechTest()
         {
             ChristmasCrackerItem crackerItem = new ChristmasCrackerItem("", -1, 2);

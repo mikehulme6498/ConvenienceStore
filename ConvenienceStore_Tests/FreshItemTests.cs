@@ -1,9 +1,5 @@
-﻿using ConvenienceStore.ItemQualityLogicModels;
-using ConvenienceStore.StoreItemModels;
+﻿using ConvenienceStore.StoreItemModels;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConvenienceStore_Tests
 {
@@ -67,16 +63,16 @@ namespace ConvenienceStore_Tests
             Assert.AreEqual(-2, freshItem.GetSellIn());
         }
 
-        //[Test]
-        //[TestCase(3, 45)]
-        //[TestCase(1, 49)]
-        //[TestCase(10, 31)]
-        //[TestCase(0, 50)]
-        //public void QualityShouldDecreaseDoubleWhenSellByDatePast(int daysPast, int expectedResult)
-        //{
-        //    FrozenItem frozenItem = new FrozenItem("", 1, 50);
-        //    frozenItem.DaysPast(daysPast);
-        //    Assert.AreEqual(expectedResult, frozenItem.GetQuality());
-        //}
+        [Test]
+        [TestCase(3, 40)]
+        [TestCase(1, 48)]
+        [TestCase(10, 12)]
+        [TestCase(0, 50)]
+        public void QualityShouldDecreaseDoubleWhenSellByDatePast(int daysPast, int expectedResult)
+        {
+            FreshItem freshItem = new FreshItem("", 1, 50);
+            freshItem.DaysPast(daysPast);
+            Assert.AreEqual(expectedResult, freshItem.GetQuality());
+        }
     }
 }

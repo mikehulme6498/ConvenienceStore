@@ -3,8 +3,7 @@
 namespace ConvenienceStore.StoreItemModels
 {
     public class FreshItem : StoreItemBase
-    {
-        
+    {        
         public FreshItem(string name, int sellIn, int quality) : base(name, sellIn, quality)
         {
             SetQualityLogic(new FrozenQualityLogic(true));
@@ -14,6 +13,4 @@ namespace ConvenienceStore.StoreItemModels
             _qualityLogic = logic;
         }
     }
-
-
 }

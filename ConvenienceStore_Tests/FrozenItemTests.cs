@@ -1,15 +1,11 @@
-﻿using ConvenienceStore;
-using ConvenienceStore.StoreItemModels;
+﻿using ConvenienceStore.StoreItemModels;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConvenienceStore_Tests
 {
     public class FrozenItemTests
     {
-       [Test]
+        [Test]
         public void QualityShouldDecreaseByOneperDay()
         {
             FrozenItem frozenItem = new FrozenItem("", 10, 50);
