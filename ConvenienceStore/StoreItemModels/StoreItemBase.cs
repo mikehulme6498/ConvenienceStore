@@ -65,7 +65,10 @@ namespace ConvenienceStore.StoreItemModels
             return _sellIn;
         }
 
-
+        public string GetName()
+        {
+            return _name;
+        }
 
     }
 }

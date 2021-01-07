@@ -6,5 +6,6 @@
         void DisplayInfo();
         int GetQuality();
         int GetSellIn();
+        string GetName();
     }
 }
