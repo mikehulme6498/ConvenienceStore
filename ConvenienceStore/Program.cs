@@ -11,26 +11,35 @@ namespace ConvenienceStore
         {
             List<IStoreItem> inventory = PopulateInventory();
             int daysToJump = 0;
+            DateTime currentDate = DateTime.Now;
 
-           
-            PrintTable(inventory, DateTime.Now);
+            InvalidItem invalidItem = new InvalidItem("INVALID ITEM", 2, 2);
+            invalidItem.DaysPast(3);
+            
+            PrintTable(inventory, currentDate);
 
             while (daysToJump == 0) 
             {
-                Console.Write(" How Many days would you like to skip forward? : ");
+                Console.Write(" How many days would you like to skip forward? : ");
                 int.TryParse(Console.ReadLine(), out daysToJump);
-            }           
-
-            
-            Console.WriteLine();
-            foreach (var item in inventory)
-            {
-                item.DaysPast(daysToJump);
             }
-            PrintTable(inventory, DateTime.Now.AddDays(daysToJump));
+
+            SkipForward(inventory, daysToJump);
+            currentDate = currentDate.AddDays(daysToJump);
+            Console.WriteLine();
+           
+            PrintTable(inventory, currentDate);
             
             Console.Read();
 
+        }
+
+        static void SkipForward(List<IStoreItem> items, int daysToSkip)
+        {
+            foreach (var item in items)
+            {
+                item.DaysPast(daysToSkip);
+            }
         }
 
         static void PrintTable(List<IStoreItem> items, DateTime date)
@@ -38,7 +47,9 @@ namespace ConvenienceStore
             var table = new ConsoleTable(new string[] { "Item", "Sell In (Days)", "Quality" });
             foreach (var item in items)
             {
-                table.AddRow(item.GetName(), item.GetSellIn(), item.GetQuality());
+                string sellIn = item.GetSellIn() == int.MaxValue ? "" : item.GetSellIn().ToString();
+                string quality = item.GetQuality() == int.MaxValue ? "" : item.GetQuality().ToString();
+                table.AddRow(item.GetName(), sellIn, quality);
             }
             Console.WriteLine($" Current Inventory - {date.ToShortDateString()}");
             Console.WriteLine(" ==============================");
@@ -57,6 +68,7 @@ namespace ConvenienceStore
                 new SoapItem("Soap", 2, 2),
                 new FrozenItem("Frozen Item", -1, 55),
                 new FrozenItem("Frozen Item", 2 , 2),
+                new InvalidItem("INVALID ITEM", 2, 2),
                 new FreshItem("Fresh Item", 2, 2),
                 new FreshItem("Fresh Item", -1, 5)
             };

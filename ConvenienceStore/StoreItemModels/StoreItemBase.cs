@@ -22,6 +22,14 @@ namespace ConvenienceStore.StoreItemModels
 
         public void DaysPast(int daysPast)
         {
+            if(this.GetType().Name == "InvalidItem")
+            {
+                _name = "NO SUCH ITEM";
+                _quality = int.MaxValue;
+                _sellIn = int.MaxValue;
+                return;
+            }
+            
             AdjustQuality(daysPast);
             AdjustSellIn(daysPast);
             CheckQualityAgainstMaxAndMin();
